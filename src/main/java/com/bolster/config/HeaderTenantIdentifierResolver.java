@@ -27,6 +27,7 @@ public class HeaderTenantIdentifierResolver implements CurrentTenantIdentifierRe
         return defaultTenant;*/
     	
     	String tenantId = TenantContext.getCurrentTenant();
+    	System.out.println("HeaderTenantIdentifierResolver, tenantId: " + tenantId);
         if (tenantId != null) {
             return tenantId;
         }

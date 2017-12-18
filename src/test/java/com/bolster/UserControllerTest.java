@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import com.bolster.controller.EmployeeController;
 import com.bolster.model.Employee;
+import com.bolster.model.Tenant;
 import com.bolster.repository.EmployeeRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -42,7 +43,9 @@ public class UserControllerTest {
 		user.setUserName("mathew01");
 		user.setPassword("mathew01");
 		user.setAddress("10 College Pl, Wollongong");
-		user.setTenantId(1);
+		Tenant tenant = new Tenant();
+		tenant.setId(1);
+		user.setTenant(tenant);
 		String userJson = toJson(user);
 
 		System.out.println(userJson);

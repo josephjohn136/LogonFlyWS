@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.bolster.security.SecurityConstants;
 import com.bolster.common.Constants;
@@ -65,11 +67,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     	AppUser user = (AppUser) auth.getPrincipal();
     	System.out.println(user.toString());
-    	System.out.println("Tenant: "+user.getTenant());
+    	System.out.println("Tenant: "+ user.getTenant());
         String token = Jwts.builder()
                 .setSubject(user.getUsername())
-                .setHeaderParam(user.getTenant(), Constants.TENANT_ID)
                 .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
+                .claim(Constants.TENANT_ID, user.getTenant())
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET.getBytes())
                 .compact();
         System.out.println("successful authnetication, token : "+token);

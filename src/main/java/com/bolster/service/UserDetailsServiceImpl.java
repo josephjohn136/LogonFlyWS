@@ -27,8 +27,8 @@ public class UserDetailsServiceImpl implements UserDetailsService{
             throw new UsernameNotFoundException(username);
         }
         AppUser user = new AppUser(applicationUser.getUserName(), applicationUser.getPassword(), emptyList());
-        user.setTenant(String.valueOf(applicationUser.getTenantId()));
-        System.out.println("UserDetailsService (loadUserByUsername) -------> application user tenant : " + applicationUser.getTenantId());
+        user.setTenant(String.valueOf(applicationUser.getTenant().getTenantName()));
+        System.out.println("UserDetailsService (loadUserByUsername) -------> application user tenant : " + applicationUser.getTenant().getId());
         return user;
     }
 }

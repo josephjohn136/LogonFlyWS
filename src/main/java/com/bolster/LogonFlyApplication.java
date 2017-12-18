@@ -27,7 +27,7 @@ public class LogonFlyApplication {
 		SpringApplication.run(LogonFlyApplication.class, args);
 	}
 	
-	/*@Bean
+	@Bean
     public FilterRegistrationBean myFilter() {
 		System.out.println("FilterRegistrationBean....");
         FilterRegistrationBean registration = new FilterRegistrationBean();
@@ -36,5 +36,5 @@ public class LogonFlyApplication {
         registration.setFilter(tenantFilter);
         registration.addUrlPatterns("/*");
         return registration;
-    }*/
+    }
 }

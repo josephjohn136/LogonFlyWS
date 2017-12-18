@@ -22,7 +22,7 @@ public class Tenant implements Serializable {
 	private int id;
 
 	@Column(name = "tenantname")
-	private boolean tenantName;
+	private String tenantName;
 
 	public int getId() {
 		return id;
@@ -32,11 +32,11 @@ public class Tenant implements Serializable {
 		this.id = id;
 	}
 
-	public boolean isTenantName() {
+	public String getTenantName() {
 		return tenantName;
 	}
 
-	public void setTenantName(boolean tenantName) {
+	public void setTenantName(String tenantName) {
 		this.tenantName = tenantName;
 	}
 

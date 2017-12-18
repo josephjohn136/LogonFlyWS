@@ -24,8 +24,9 @@ public class Employee implements Serializable {
 	@Column(name = "username")
 	private String userName;
 
-	@Column(name = "tenant_id")
-	private int tenantId;
+	@OneToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "tenant_id")
+	private Tenant tenant;
 
 	@Column(name = "pwd")
 	private String password;
@@ -74,12 +75,12 @@ public class Employee implements Serializable {
 		this.id = id;
 	}
 
-	public int getTenantId() {
-		return tenantId;
+	public Tenant getTenant() {
+		return tenant;
 	}
 
-	public void setTenantId(int tenantId) {
-		this.tenantId = tenantId;
+	public void setTenant(Tenant tenant) {
+		this.tenant = tenant;
 	}
 
 	public String getAddress() {

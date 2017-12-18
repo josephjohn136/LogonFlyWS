@@ -13,20 +13,23 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "appuser")
-public class User implements Serializable {
+@Table(name = "employee")
+public class Employee implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "user_id", unique = true, nullable = false)
-	private int userId;
+	@Column(name = "id", unique = true, nullable = false)
+	private int id;
 
 	@Column(name = "username")
 	private String userName;
 
+	@Column(name = "tenant_id")
+	private int tenantId;
+
 	@Column(name = "pwd")
 	private String password;
-	
+
 	@Column(name = "firstname")
 	private String firstName;
 
@@ -36,14 +39,14 @@ public class User implements Serializable {
 	@Column(name = "dob")
 	private String dob;
 
+	@Column(name = "emp_address")
+	private String address;
+
 	@Column(name = "email")
 	private String email;
 
 	@Column(name = "mobile")
 	private String phoneNumber;
-
-	@Column(name = "enabled")
-	private boolean enabled;
 
 	@Column(name = "account_expired")
 	private boolean accountExpired;
@@ -51,16 +54,64 @@ public class User implements Serializable {
 	@Column(name = "account_locked")
 	private boolean accountLocked;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "address_id")
-	private Address address;
+	@Column(name = "account_enabled")
+	private boolean accountEnabled;
 
-	public int getUserId() {
-		return userId;
+	@Column(name = "employment_type")
+	private int employmentType;
+
+	@Column(name = "emp_role")
+	private int role;
+
+	@Column(name = "jobtype")
+	private int jobType;
+
+	public int getId() {
+		return id;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(int tenantId) {
+		this.tenantId = tenantId;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public int getEmploymentType() {
+		return employmentType;
+	}
+
+	public void setEmploymentType(int employmentType) {
+		this.employmentType = employmentType;
+	}
+
+	public int getRole() {
+		return role;
+	}
+
+	public void setRole(int role) {
+		this.role = role;
+	}
+
+	public int getJobType() {
+		return jobType;
+	}
+
+	public void setJobType(int jobType) {
+		this.jobType = jobType;
 	}
 
 	public String getFirstName() {
@@ -103,14 +154,6 @@ public class User implements Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
 	public boolean isAccountExpired() {
 		return accountExpired;
 	}
@@ -131,18 +174,9 @@ public class User implements Serializable {
 		this.userName = userName;
 	}
 
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
 	public void setAccountLocked(boolean accountLocked) {
 		this.accountLocked = accountLocked;
 	}
-
 
 	public String getPassword() {
 		return password;
@@ -152,6 +186,14 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	public boolean isAccountEnabled() {
+		return accountEnabled;
+	}
+
+	public void setAccountEnabled(boolean accountEnabled) {
+		this.accountEnabled = accountEnabled;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder st = new StringBuilder();
@@ -159,7 +201,7 @@ public class User implements Serializable {
 		st.append("First Name: " + firstName + ", ");
 		st.append("Last Name: " + lastName + ", ");
 		st.append("DOB: " + dob + ", ");
-		st.append("User Id: " + userId + ", ");
+		st.append("User Id: " + id + ", ");
 		st.append("User Name: " + email + ", ");
 		st.append("Address: " + address.toString());
 		return st.toString();

@@ -17,12 +17,18 @@ public class HeaderTenantIdentifierResolver implements CurrentTenantIdentifierRe
 
     @Override
     public String resolveCurrentTenantIdentifier() {
-        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        /*RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes != null) {
             String tenantId = (String) requestAttributes.getAttribute(tenantKey, RequestAttributes.SCOPE_REQUEST);
             if (tenantId != null) {
                 return tenantId;
             }
+        }
+        return defaultTenant;*/
+    	
+    	String tenantId = TenantContext.getCurrentTenant();
+        if (tenantId != null) {
+            return tenantId;
         }
         return defaultTenant;
     }

@@ -36,6 +36,7 @@ public class MultiTenantFilter implements Filter {
 		} else {
 			req.setAttribute(tenantKey, defaultTenant);
 		}
+		System.out.println("tenantkey: "+req.getAttribute(tenantKey));
 		chain.doFilter(request, response);
 	}
 

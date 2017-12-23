@@ -67,6 +67,9 @@ public class Employee implements Serializable {
 	@Column(name = "jobtype")
 	private int jobType;
 
+	@Column(name = "profile_pic")
+	private String profilePic;
+
 	public int getId() {
 		return id;
 	}
@@ -193,6 +196,14 @@ public class Employee implements Serializable {
 
 	public void setAccountEnabled(boolean accountEnabled) {
 		this.accountEnabled = accountEnabled;
+	}
+
+	public String getProfilePic() {
+		return profilePic;
+	}
+
+	public void setProfilePic(String profilePic) {
+		this.profilePic = profilePic;
 	}
 
 	@Override

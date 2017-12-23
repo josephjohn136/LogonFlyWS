@@ -39,5 +39,9 @@ public class Tenant implements Serializable {
 	public void setTenantName(String tenantName) {
 		this.tenantName = tenantName;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "TenantId: " + id + ", Tenant: " + tenantName;
+	}
 }

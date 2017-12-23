@@ -24,6 +24,7 @@ import com.bolster.security.SecurityConstants;
 import com.bolster.common.Constants;
 import com.bolster.model.AppUser;
 import com.bolster.model.Employee;
+import com.bolster.model.Tenant;
 
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter{
@@ -66,15 +67,21 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             Authentication auth) throws IOException, ServletException {
 
     	AppUser user = (AppUser) auth.getPrincipal();
+    	
     	System.out.println(user.toString());
-    	System.out.println("Tenant: "+ user.getTenant());
+    	System.out.println("Authentication, Tenant: "+ user.getTenant());
         String token = Jwts.builder()
                 .setSubject(user.getUsername())
                 .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
-                .claim(Constants.TENANT_ID, user.getTenant())
+                .claim(Constants.TENANT_ID, user.getTenantId())
+                .claim(Constants.TENANT_NAME, user.getTenant())
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET.getBytes())
                 .compact();
         System.out.println("successful authnetication, token : "+token);
         res.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
+        res.getWriter().write(token);
+        res.getWriter().flush();
+        res.getWriter().close();
+        
     }
 }

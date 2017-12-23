@@ -30,7 +30,6 @@ public class LogonFlyApplicationTests {
 		user.setLastName("Zack");
 		user.setEmail("mathew@test.com");
 		user.setPhoneNumber("23452354");
-		user.setUserName("mathew01");
 		user.setPassword("mathew01");
 		user.setAddress("10 College Pl, Wollongong");
 		

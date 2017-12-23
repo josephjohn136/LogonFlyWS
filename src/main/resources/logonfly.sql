@@ -23,8 +23,8 @@ ALTER TABLE public.tenant
 CREATE TABLE public.employee
 (
   id serial NOT NULL,
-  username character varying(16),
   tenant_id integer,
+  username character varying(256),
   pwd character varying(100),
   firstname character varying(50),
   lastname character varying(50),
@@ -35,19 +35,21 @@ CREATE TABLE public.employee
   account_expired boolean,
   account_locked boolean,
   account_enabled boolean,
-  employment_type bit,
-  jobtype bit,
-  emp_role bit,
-  CONSTRAINT "employee_pkey" PRIMARY KEY (id),
-  CONSTRAINT "employee_username_key" UNIQUE (username),
-  CONSTRAINT fk_tenant_id FOREIGN KEY (tenant_id)
+  employment_type integer DEFAULT 1,
+  jobtype integer DEFAULT 1,
+  emp_role integer DEFAULT 1,
+  profile_pic character varying(256),
+  CONSTRAINT employee_pkey PRIMARY KEY (id),
+  CONSTRAINT employee_username_ukey UNIQUE (username),
+  CONSTRAINT tenant_fk FOREIGN KEY (tenant_id)
       REFERENCES public.tenant (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT employee_email_pkey UNIQUE (email)
 )
 WITH (
   OIDS=FALSE
 );
 ALTER TABLE public.employee
   OWNER TO roster;
+
 

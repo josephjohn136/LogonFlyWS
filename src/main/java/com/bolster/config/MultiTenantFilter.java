@@ -10,8 +10,10 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.bolster.common.Constants;
+import com.bolster.model.Tenant;
 import com.bolster.security.SecurityConstants;
 
 import io.jsonwebtoken.Claims;
@@ -20,8 +22,9 @@ import io.jsonwebtoken.Jwts;
 
 public class MultiTenantFilter implements Filter {
 
-	String[] defaultTenantUri = {"/emp"};
-
+	String[] defaultTenantUri = {"/emp", "/emp/addEmployee"};
+	
+	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -32,6 +35,7 @@ public class MultiTenantFilter implements Filter {
 			throws IOException, ServletException {
 		
 		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse res = (HttpServletResponse) response;
 		String uri = req.getRequestURI();
 		
 		System.out.println("uri: " + uri);
@@ -39,7 +43,7 @@ public class MultiTenantFilter implements Filter {
 
 		
 		if(Arrays.asList(defaultTenantUri).contains(uri)){
-			TenantContext.setCurrentTenant("public");
+			TenantContext.setCurrentTenant(Constants.DEFAULT_TENANT);
 		}else{
 			String tenant = "";
 			String token = req.getHeader(SecurityConstants.HEADER_STRING);
@@ -48,7 +52,7 @@ public class MultiTenantFilter implements Filter {
 	            Jws<Claims> claims = Jwts.parser()
 	                    .setSigningKey(SecurityConstants.SECRET.getBytes())
 	                    .parseClaimsJws(token.replace(SecurityConstants.TOKEN_PREFIX, ""));
-	            tenant = claims.getBody().get(Constants.TENANT_ID).toString();
+	            tenant = claims.getBody().get(Constants.TENANT_NAME).toString();
 	        }
 			
 			if (tenant != null && !tenant.isEmpty()) {
@@ -57,9 +61,6 @@ public class MultiTenantFilter implements Filter {
 				TenantContext.setCurrentTenant("public");
 			}
 		}
-		
-		
-		
 		System.out.println("====-----> Tenant Interceptor, tenant: " + TenantContext.getCurrentTenant());
 		
 		chain.doFilter(request, response);

@@ -45,6 +45,7 @@ public class UserControllerTest {
 		user.setAddress("10 College Pl, Wollongong");
 		Tenant tenant = new Tenant();
 		tenant.setId(1);
+		tenant.setTenantName("bolster");
 		user.setTenant(tenant);
 		String userJson = toJson(user);
 

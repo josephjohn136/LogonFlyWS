@@ -6,6 +6,7 @@ package com.bolster.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bolster.common.Utils;
+import com.bolster.config.TenantContext;
 import com.bolster.model.Employee;
+import com.bolster.model.Tenant;
 import com.bolster.repository.EmployeeRepository;
 
 @RestController
@@ -32,12 +36,21 @@ public class EmployeeController {
 	BCryptPasswordEncoder passwordEncoder;
 
 
-	@RequestMapping(value = "/sign-up", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public void signUp(@RequestBody Employee user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		System.out.println("password: " + user.getPassword());
 		System.out.println("Add user..");
 		System.out.println("Employee: " + user.toString());
+		Employee _emp = empRespository.save(user);
+		System.out.println("user id: " + _emp.getId());
+	}
+	
+	@RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
+	public void addEmployee(@RequestBody Employee user, HttpServletRequest request) {
+		Tenant tenant = Utils.getTenantFromToken(request);
+		user.setTenant(tenant);
+		System.out.println("Add Employee, Tenant: "+ tenant.toString());
 		Employee _emp = empRespository.save(user);
 		System.out.println("user id: " + _emp.getId());
 	}

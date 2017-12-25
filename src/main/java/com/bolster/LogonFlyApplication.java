@@ -37,4 +37,5 @@ public class LogonFlyApplication {
         registration.addUrlPatterns("/*");
         return registration;
     }
+	
 }

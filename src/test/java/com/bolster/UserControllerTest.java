@@ -14,10 +14,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import com.bolster.config.SchemaConfig;
 import com.bolster.controller.EmployeeController;
 import com.bolster.model.Employee;
 import com.bolster.model.Tenant;
 import com.bolster.repository.EmployeeRepository;
+import com.bolster.repository.TenantRespository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
@@ -30,10 +32,19 @@ public class UserControllerTest {
 	@MockBean
 	private EmployeeRepository empRepository;
 
+	@MockBean
+	private TenantRespository tenantRepository;
+	
 	@Autowired
 	EmployeeController uc;
 	
 	@Test
+	public void testAddTenant(){
+		SchemaConfig config = new SchemaConfig();
+		config.addSchema("test1");
+	}
+	
+	//@Test
 	public void testAddUser() throws Exception {
 		Employee user = new Employee();
 		user.setFirstName("Mathew");

@@ -22,7 +22,7 @@ import io.jsonwebtoken.Jwts;
 
 public class MultiTenantFilter implements Filter {
 
-	String[] defaultTenantUri = {"/emp", "/emp/addEmployee"};
+	String[] defaultTenantUri = {"/emp", "/emp/addEmployee", "/emp/newtenant"};
 	
 	
 	@Override

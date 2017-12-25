@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.bolster.config.MultiTenantFilter;
 
@@ -17,12 +18,18 @@ public class LogonFlyApplication {
 	@Autowired
     AutowireCapableBeanFactory beanFactory;
 	
+	@Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+	
 	public static void main(String[] args) {
 		SpringApplication.run(LogonFlyApplication.class, args);
 	}
 	
 	@Bean
     public FilterRegistrationBean myFilter() {
+		System.out.println("FilterRegistrationBean....");
         FilterRegistrationBean registration = new FilterRegistrationBean();
         Filter tenantFilter = new MultiTenantFilter();
         beanFactory.autowireBean(tenantFilter);
@@ -30,4 +37,5 @@ public class LogonFlyApplication {
         registration.addUrlPatterns("/*");
         return registration;
     }
+	
 }

@@ -16,6 +16,7 @@ public class SchemaPerTenantConnectionProvider implements MultiTenantConnectionP
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	@Autowired
 	private DataSource dataSource;
 

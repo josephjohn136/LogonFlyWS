@@ -14,19 +14,15 @@ import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "tenant")
-public class Tenant implements Serializable{
+public class Tenant implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private int id;
 
-	@Column(name = "tenant_id")
-	private String tenantId;
-
-	@Column(name = "in_use")
-	@Type(type = "true_false")
-	private boolean inUse;
+	@Column(name = "tenantname")
+	private String tenantName;
 
 	public int getId() {
 		return id;
@@ -36,20 +32,16 @@ public class Tenant implements Serializable{
 		this.id = id;
 	}
 
-	public String getTenantId() {
-		return tenantId;
+	public String getTenantName() {
+		return tenantName;
 	}
 
-	public void setTenantId(String tenantId) {
-		this.tenantId = tenantId;
+	public void setTenantName(String tenantName) {
+		this.tenantName = tenantName;
 	}
-
-	public boolean isInUse() {
-		return inUse;
+	
+	@Override
+	public String toString() {
+		return "TenantId: " + id + ", Tenant: " + tenantName;
 	}
-
-	public void setInUse(boolean inUse) {
-		this.inUse = inUse;
-	}
-
 }
